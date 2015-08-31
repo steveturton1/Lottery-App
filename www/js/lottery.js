@@ -12,6 +12,7 @@ function thunderBall() {
 
     drawLine = getRandomNumbers(39, 5).sort(function(a, b){return a-b});
     drawThunderball = getRandomNumbers(14, 1);
+    document.getElementById('BLAG').innerHTML = "YEP";
 
     for (i = 0; i < maxLines; i++) {
         matchLine = getRandomNumbers(39, 5).sort(function(a, b){return a-b});
