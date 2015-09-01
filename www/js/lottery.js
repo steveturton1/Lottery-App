@@ -1,8 +1,10 @@
-/**
+﻿/**
  * Created by Steve on 29/08/2015.
  */
 
-var inc = 0, max = 50000;
+var inc = 0, max = 10000;
+var linesDone = 0;
+var costPerLine = 1;
 
 function cancelThunderball() {
     inc = max;
@@ -20,7 +22,7 @@ var delay = 0;
             setTimeout(timeoutloop, delay);
         } else {
             document.getElementById("GoButton").disabled = false;
-            document.getElementById("GoRefreshButton").disabled = true;
+            document.getElementById("GoRefreshButton").disabled = false;
         }
     }
 
@@ -49,6 +51,7 @@ function runThunderball() {
     drawThunderball = getRandomNumbers(14, 1);
 
     for (i = 0; i < maxLines; i++) {
+        linesDone++;
         matchLine = getRandomNumbers(39, 5).sort(function(a, b){return a-b});
         matchThunderball = getRandomNumbers(14, 1);
 
@@ -57,59 +60,103 @@ function runThunderball() {
         thunderballMatch = matchedNumberCount(drawThunderball, matchThunderball) === 1;
 
         var elem = null;
+        var elem_prize = null;
+        var win = 0;
         switch(numbersMatched) {
             case 5:
                 if (thunderballMatch === true) {
                     // 5 main numbers + the Thunderball	£500,000
                     elem = document.getElementById('five_thunderball');
+                    elem_prize = document.getElementById('five_thunderball_prize');
+                    win = 500000;
                 } else {
                     // 5 main numbers	£5,000
                     elem = document.getElementById('five');
+                    elem_prize = document.getElementById('five_prize');
+                    win = 5000;
                 }
                 break;
             case 4:
                 if (thunderballMatch === true) {
                     // 4 main numbers + the Thunderball	£250
                     elem = document.getElementById('four_thunderball');
+                    elem_prize = document.getElementById('four_thunderball_prize');
+                    win = 250;
                 } else {
                     // 4 main numbers	£100
                     elem = document.getElementById('four');
+                    elem_prize = document.getElementById('four_prize');
+                    win = 100;
                 }
                 break;
             case 3:
                 if (thunderballMatch === true) {
                     // 3 main numbers + the Thunderball	£20
                     elem = document.getElementById('three_thunderball');
+                    elem_prize = document.getElementById('three_thunderball_prize');
+                    win = 20;
                 } else {
                     // 3 main numbers	£10
                     elem = document.getElementById('three');
+                    elem_prize = document.getElementById('three_prize');
+                    win = 10;
                 }
                 break;
             case 2:
                 if (thunderballMatch === true) {
                     // 2 main numbers + the Thunderball	£10
                     elem = document.getElementById('two_thunderball');
+                    elem_prize = document.getElementById('two_thunderball_prize');
+                    win = 10;
                 }
                 break;
             case 1:
                 if (thunderballMatch === true) {
                     // 1 main numbers + the Thunderball	£5
                     elem = document.getElementById('one_thunderball');
+                    elem_prize = document.getElementById('one_thunderball_prize');
+                    win = 5;
                 }
                 break;
             case 0:
                 if (thunderballMatch === true) {
                     // 0 main numbers + the Thunderball	£3
                     elem = document.getElementById('zero_thunderball');
+                    elem_prize = document.getElementById('zero_thunderball_prize');
+                    win = 3;
                 }
                 break;
         }
 
         if (elem !== null) {
-            elem.innerHTML = parseInt(elem.innerHTML) + 1;
+            var winCount, winTotal;
+
+            winCount = parseInt(elem.innerHTML) + 1;
+            elem.innerHTML = winCount;
+
+            elem_prize.innerHTML = formatDollar(winCount * win);
+
+            winTotal = parseInt(document.getElementById('five_thunderball').innerHTML) * 500000;
+            winTotal += parseInt(document.getElementById('five').innerHTML) * 5000;
+            winTotal += parseInt(document.getElementById('four_thunderball').innerHTML) * 250;
+            winTotal += parseInt(document.getElementById('four').innerHTML) * 100;
+            winTotal += parseInt(document.getElementById('three_thunderball').innerHTML) * 20;
+            winTotal += parseInt(document.getElementById('three').innerHTML) * 10;
+            winTotal += parseInt(document.getElementById('two_thunderball').innerHTML) * 10;
+            winTotal += parseInt(document.getElementById('one_thunderball').innerHTML) * 5;
+            winTotal += parseInt(document.getElementById('zero_thunderball').innerHTML) * 3;
+            document.getElementById('total_win').innerHTML = formatDollar(winTotal);
         }
 
+        document.getElementById('total_spent').innerHTML = formatDollar(linesDone * costPerLine);
     }
+}
+
+function formatDollar(num) {
+    var p = num.toFixed(0).split(".");
+    return "£" + p[0].split("").reverse().reduce(function(acc, num, i, orig) {
+        return  num + (i && !(i % 3) ? "," : "") + acc;
+    }, "") //+ "." + p[1];
 }
 
 function getRandomNumbers(maxNumber, numbersInDraw) {
