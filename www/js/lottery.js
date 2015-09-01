@@ -2,7 +2,42 @@
  * Created by Steve on 29/08/2015.
  */
 
-function thunderBall() {
+var inc = 0, max = 50000;
+
+function cancelThunderball() {
+    inc = max;
+}
+
+function thunderballWithRefresh() {
+var delay = 0;
+
+    inc = 0;
+
+    function timeoutloop() {
+        runThunderball();
+
+        if (++inc < max) {
+            setTimeout(timeoutloop, delay);
+        } else {
+            document.getElementById("GoButton").disabled = false;
+            document.getElementById("GoRefreshButton").disabled = true;
+        }
+    }
+
+    document.getElementById("GoButton").disabled = true;
+    document.getElementById("GoRefreshButton").disabled = true;
+    setTimeout(timeoutloop, delay);
+}
+
+function thunderballNoRefresh() {
+
+    for (inc = 0; inc < max; inc ++) {
+        runThunderball();
+    }
+
+}
+
+function runThunderball() {
     var maxLines = 50;
     var drawLine, drawThunderball;      // represents the drawn numbers
     var matchLine, matchThunderball;    // represents a line
@@ -12,7 +47,6 @@ function thunderBall() {
 
     drawLine = getRandomNumbers(39, 5).sort(function(a, b){return a-b});
     drawThunderball = getRandomNumbers(14, 1);
-    document.getElementById('BLAG').innerHTML = "YEP";
 
     for (i = 0; i < maxLines; i++) {
         matchLine = getRandomNumbers(39, 5).sort(function(a, b){return a-b});
@@ -22,44 +56,59 @@ function thunderBall() {
         numbersMatched = matchedNumberCount(drawLine, matchLine);
         thunderballMatch = matchedNumberCount(drawThunderball, matchThunderball) === 1;
 
+        var elem = null;
         switch(numbersMatched) {
             case 5:
                 if (thunderballMatch === true) {
                     // 5 main numbers + the Thunderball	£500,000
+                    elem = document.getElementById('five_thunderball');
                 } else {
                     // 5 main numbers	£5,000
+                    elem = document.getElementById('five');
                 }
                 break;
             case 4:
                 if (thunderballMatch === true) {
                     // 4 main numbers + the Thunderball	£250
+                    elem = document.getElementById('four_thunderball');
                 } else {
                     // 4 main numbers	£100
+                    elem = document.getElementById('four');
                 }
                 break;
             case 3:
                 if (thunderballMatch === true) {
                     // 3 main numbers + the Thunderball	£20
+                    elem = document.getElementById('three_thunderball');
                 } else {
                     // 3 main numbers	£10
+                    elem = document.getElementById('three');
                 }
                 break;
             case 2:
                 if (thunderballMatch === true) {
                     // 2 main numbers + the Thunderball	£10
+                    elem = document.getElementById('two_thunderball');
                 }
                 break;
             case 1:
                 if (thunderballMatch === true) {
                     // 1 main numbers + the Thunderball	£5
+                    elem = document.getElementById('one_thunderball');
                 }
                 break;
             case 0:
                 if (thunderballMatch === true) {
                     // 0 main numbers + the Thunderball	£3
+                    elem = document.getElementById('zero_thunderball');
                 }
                 break;
         }
+
+        if (elem !== null) {
+            elem.innerHTML = parseInt(elem.innerHTML) + 1;
+        }
+
     }
 }
 

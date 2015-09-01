@@ -35,11 +35,17 @@ var app = {
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
 
-        var elem = document.getElementById('myButton');
-        document.getElementById('myButton').addEventListener("click", thunderBall);
+        //var elem = document.getElementById('myButton');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+
+        if (id === 'deviceready') {
+            document.getElementById('GoRefreshButton').addEventListener("click", thunderballWithRefresh);
+            document.getElementById('GoButton').addEventListener("click", thunderballNoRefresh);
+
+            document.getElementById('CancelButton').addEventListener("click", cancelThunderball);
+        }
         //var parentElement = document.getElementById(id);
         //var listeningElement = parentElement.querySelector('.listening');
         //var receivedElement = parentElement.querySelector('.received');
@@ -50,5 +56,4 @@ var app = {
         //console.log('Received Event: ' + id);
     }
 };
-
 app.initialize();
