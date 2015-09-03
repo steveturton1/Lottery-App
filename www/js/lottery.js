@@ -4,21 +4,26 @@
 
 var inc = 0, max = 10000;
 var linesDone = 0;
+var drawsDone = 0;
 var costPerLine = 1;
+var bigWin = false;
 
 function cancelThunderball() {
     inc = max;
+    bigWin = true;
 }
 
 function thunderballWithRefresh() {
 var delay = 0;
 
     inc = 0;
+    bigWin = false;
 
     function timeoutloop() {
         runThunderball();
+        inc++;
 
-        if (++inc < max) {
+        if (bigWin === false) {
             setTimeout(timeoutloop, delay);
         } else {
             document.getElementById("Reset").disabled = false;
@@ -61,8 +66,11 @@ function thunderballReset() {
 
     document.getElementById('total_win').innerHTML = '0';
     document.getElementById('total_spent').innerHTML = '0';
+    document.getElementById('time_gone').innerHTML = "";
 
     linesDone = 0;
+    drawsDone = 0;
+    bigWin = false;
 }
 
 
@@ -95,6 +103,7 @@ function runThunderball() {
                     // 5 main numbers + the Thunderball	£500,000
                     elem = document.getElementById('five_thunderball');
                     elem_prize = document.getElementById('five_thunderball_prize');
+                    bigWin = true;
                     win = 500000;
                 } else {
                     // 5 main numbers	£5,000
@@ -177,6 +186,27 @@ function runThunderball() {
 
         document.getElementById('total_spent').innerHTML = formatDollar(linesDone * costPerLine);
     }
+    drawsDone++;
+    setDrawsDone(drawsDone);
+}
+
+function setDrawsDone(drawsDone) {
+    // each drawsDone is 1 month.
+    var years = parseInt(drawsDone / 12);
+    var remainingMonths = drawsDone % 12;
+    var msg = "";
+
+    if (years > 0) {
+        if (years === 1) {
+            msg = "1 Year ";
+        } else {
+            msg = years + " Years ";
+        }
+    }
+    msg = msg + remainingMonths + " months";
+
+    document.getElementById('time_gone').innerHTML = msg;
+
 }
 
 function formatDollar(num) {

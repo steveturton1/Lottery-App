@@ -124,7 +124,7 @@ header {
     line-height: 44px;
     background-color: #f7f7f7;
     padding: 0 60px;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 header button {
