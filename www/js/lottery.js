@@ -21,12 +21,12 @@ var delay = 0;
         if (++inc < max) {
             setTimeout(timeoutloop, delay);
         } else {
-            document.getElementById("GoButton").disabled = false;
+            document.getElementById("Reset").disabled = false;
             document.getElementById("GoRefreshButton").disabled = false;
         }
     }
 
-    document.getElementById("GoButton").disabled = true;
+    document.getElementById("Reset").disabled = true;
     document.getElementById("GoRefreshButton").disabled = true;
     setTimeout(timeoutloop, delay);
 }
@@ -36,8 +36,35 @@ function thunderballNoRefresh() {
     for (inc = 0; inc < max; inc ++) {
         runThunderball();
     }
-
 }
+
+function thunderballReset() {
+    document.getElementById('five_thunderball').innerHTML = '0';
+    document.getElementById('five').innerHTML = '0';
+    document.getElementById('four_thunderball').innerHTML = '0';
+    document.getElementById('four').innerHTML = '0';
+    document.getElementById('three_thunderball').innerHTML = '0';
+    document.getElementById('three').innerHTML = '0';
+    document.getElementById('two_thunderball').innerHTML = '0';
+    document.getElementById('one_thunderball').innerHTML = '0';
+    document.getElementById('zero_thunderball').innerHTML = '0';
+
+    document.getElementById('five_thunderball_prize').innerHTML = '0';
+    document.getElementById('five_prize').innerHTML = '0';
+    document.getElementById('four_thunderball_prize').innerHTML = '0';
+    document.getElementById('four_prize').innerHTML = '0';
+    document.getElementById('three_thunderball_prize').innerHTML = '0';
+    document.getElementById('three_prize').innerHTML = '0';
+    document.getElementById('two_thunderball_prize').innerHTML = '0';
+    document.getElementById('one_thunderball_prize').innerHTML = '0';
+    document.getElementById('zero_thunderball_prize').innerHTML = '0';
+
+    document.getElementById('total_win').innerHTML = '0';
+    document.getElementById('total_spent').innerHTML = '0';
+
+    linesDone = 0;
+}
+
 
 function runThunderball() {
     var maxLines = 50;

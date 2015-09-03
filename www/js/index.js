@@ -42,7 +42,7 @@ var app = {
 
         if (id === 'deviceready') {
             document.getElementById('GoRefreshButton').addEventListener("click", thunderballWithRefresh);
-            document.getElementById('GoButton').addEventListener("click", thunderballNoRefresh);
+            document.getElementById('Reset').addEventListener("click", thunderballReset);
 
             document.getElementById('CancelButton').addEventListener("click", cancelThunderball);
         }
