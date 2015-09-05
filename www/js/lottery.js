@@ -8,6 +8,30 @@ var drawsDone = 0;
 var costPerLine = 1;
 var bigWin = false;
 
+function vibrateThunderball() {
+    navigator.vibrate(2000);
+}
+
+function bigWinner() {
+    vibrateThunderball();
+    alertThunderball();
+}
+
+function alertThunderball() {
+    function alertDismissed() {
+    // do something
+    }
+
+    navigator.notification.alert(
+        'You are a Jackpot Winner!',  // message
+        alertDismissed,         // callback
+        'Game Over',            // title
+        'Done'                  // buttonName
+    );
+}
+
+
+
 function cancelThunderball() {
     inc = max;
     bigWin = true;
@@ -103,6 +127,7 @@ function runThunderball() {
                     // 5 main numbers + the Thunderball	£500,000
                     elem = document.getElementById('five_thunderball');
                     elem_prize = document.getElementById('five_thunderball_prize');
+                    bigWinner();
                     bigWin = true;
                     win = 500000;
                 } else {

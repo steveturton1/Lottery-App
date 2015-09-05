@@ -26,7 +26,12 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+        if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
+            document.addEventListener('deviceready', this.onDeviceReady, false);
+        } else {
+            this.onDeviceReady();
+        }
+
     },
     // deviceready Event Handler
     //
@@ -45,6 +50,18 @@ var app = {
             document.getElementById('Reset').addEventListener("click", thunderballReset);
 
             document.getElementById('CancelButton').addEventListener("click", cancelThunderball);
+            //document.getElementById('VibrateButton').addEventListener("click", vibrateThunderball);
+            //document.getElementById('AlertButton').addEventListener("click", alertThunderball);
+            document.getElementById('BigWinnerButton').addEventListener("click", bigWinner);
+
+            var msg = device.cordova + "/" + device.model + "/" + device.platform;
+
+            //if ('vibrate' in navigator) {
+            //    msg += "/Vibrate";
+            //} else {
+            //    msg += "/No Vibrate";
+            //}
+            document.getElementById('APPSTUFF').innerHTML = msg;
         }
         //var parentElement = document.getElementById(id);
         //var listeningElement = parentElement.querySelector('.listening');
