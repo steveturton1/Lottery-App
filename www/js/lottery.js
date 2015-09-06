@@ -8,6 +8,24 @@ var drawsDone = 0;
 var costPerLine = 1;
 var bigWin = false;
 
+var toastPos = 0;
+function toast() {
+    switch(toastPos) {
+        case 0:
+            window.plugins.toast.showShortTop("I am a short message");
+            toastPos = 1;
+            break;
+        case 1:
+            window.plugins.toast.showShortCenter("I am a short message");
+            toastPos = 2;
+            break;
+        case 2:
+            window.plugins.toast.showShortBottom("I am a short message");
+            toastPos = 0;
+            break;
+    }
+}
+
 function vibrateThunderball() {
     navigator.vibrate(2000);
 }
@@ -30,6 +48,72 @@ function alertThunderball() {
     );
 }
 
+var watchAccOptions = { frequency: 100 };  // Update every 10th seconds
+var watchAccID = null;
+
+function watchAccOn() {
+    function onWatchAccSuccess(acceleration) {
+        //alert('Acceleration X: ' + acceleration.x + '\n' +
+        //  'Acceleration Y: ' + acceleration.y + '\n' +
+        //  'Acceleration Z: ' + acceleration.z + '\n' +
+        //  'Timestamp: '      + acceleration.timestamp + '\n');
+        document.getElementById("WatchAccResult").innerHTML = "X:"+ acceleration.x.toFixed(2) + " Y:" + acceleration.y.toFixed(2) + " Z:" + acceleration.z.toFixed(2);
+
+    };
+
+    function onWatchAccError() {
+        document.getElementById("WatchAccResult").innerHTML = "WatchAccError";
+    };
+
+    if (!watchAccID) {
+        watchAccID = navigator.accelerometer.watchAcceleration(onWatchAccSuccess, onWatchAccError, watchAccOptions);
+    }
+}
+function watchAccOff() {
+    if (watchAccID) {
+        navigator.accelerometer.clearWatch(watchAccID);
+        watchAccID = null;
+    }
+
+}
+
+var watchCompassOptions = { frequency: 1000 };  // Update every 10th seconds
+var watchCompassID = null;
+
+function watchCompassOn() {
+
+    function onCompassSuccess(heading) {
+        document.getElementById('WatchCompassResult').innerHTML = "Clicked 2";
+        document.getElementById('WatchCompassResult').innerHTML = heading;
+    }
+
+    function onCompassError(error) {
+        if (error.code == CompassError.COMPASS_INTERNAL_ERR) {
+            document.getElementById('WatchCompassResult').innerHTML = "CompassError.COMPASS_INTERNAL_ERR";
+        } else {
+            if (error.code == CompassError.COMPASS_NOT_SUPPORTED) {
+                document.getElementById('WatchCompassResult').innerHTML = "CompassError.COMPASS_NOT_SUPPORTED";
+            } else {
+                document.getElementById('WatchCompassResult').innerHTML = "ERROR! Not Supported:" + error.code;
+            }
+        }
+    }
+
+
+    if(!watchCompassID) {
+        document.getElementById('WatchCompassResult').innerHTML = "Clicked";
+        watchCompassID = navigator.compass.watchHeading(onCompassSuccess, onCompassError, watchCompassOptions);
+    }
+
+}
+
+function watchCompassOff() {
+    if(watchCompassID) {
+        navigator.compass.clearWatch(watchCompassID);
+        watchCompassID = null;
+    }
+
+}
 
 
 function cancelThunderball() {

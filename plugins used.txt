@@ -1,0 +1,7 @@
+cordova-plugin-device 1.0.1 "Device"
+cordova-plugin-device-motion 1.1.1 "Device Motion"
+cordova-plugin-device-orientation 1.0.1 "Device Orientation"
+cordova-plugin-dialogs 1.1.1 "Notification"
+cordova-plugin-vibration 1.2.0 "Vibration"
+cordova-plugin-whitelist 1.0.0 "Whitelist"
+cordova-plugin-x-toast 2.2.0 "Toast"

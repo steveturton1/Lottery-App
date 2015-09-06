@@ -29,6 +29,7 @@ var app = {
         if (navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry)/)) {
             document.addEventListener('deviceready', this.onDeviceReady, false);
         } else {
+            // for desktop debugging.
             this.onDeviceReady();
         }
 
@@ -62,6 +63,14 @@ var app = {
             //    msg += "/No Vibrate";
             //}
             document.getElementById('APPSTUFF').innerHTML = msg;
+
+            document.getElementById('WatchAccOn').addEventListener("click", watchAccOn);
+            document.getElementById('WatchAccOff').addEventListener("click", watchAccOff);
+            document.getElementById('ToastButton').addEventListener("click", toast);
+
+
+            //document.getElementById('WatchCompassOn').addEventListener("click", watchCompassOn);
+            //document.getElementById('WatchCompassOff').addEventListener("click", watchCompassOff);
         }
         //var parentElement = document.getElementById(id);
         //var listeningElement = parentElement.querySelector('.listening');
