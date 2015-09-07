@@ -10,6 +10,10 @@ var bigWin = false;
 
 var toastPos = 0;
 function toast() {
+
+    window.plugins.toast.showShortTop("I am a short message");
+    return;
+
     switch(toastPos) {
         case 0:
             window.plugins.toast.showShortTop("I am a short message");
@@ -174,7 +178,7 @@ function thunderballReset() {
 
     document.getElementById('total_win').innerHTML = '0';
     document.getElementById('total_spent').innerHTML = '0';
-    document.getElementById('time_gone').innerHTML = "";
+    document.getElementById('time_gone').innerHTML = "&nbsp";
 
     linesDone = 0;
     drawsDone = 0;
@@ -353,13 +357,18 @@ function matchedNumberCount(drawLine, matchLine) {
     var matchCount = 0;
 
     for (i = 0; i < drawLine.length; i++) {
-        // Now see if the number is in the matchLine
-        for (j = 0; j < matchLine.length; j++) {
-            if (drawLine[i] === matchLine[j]) {
-                matchCount++;
-                break;
-            }
+
+        if (matchLine.indexOf(drawLine[i]) !== -1) {
+            matchCount++;
         }
+
+        // Now see if the number is in the matchLine
+        //for (j = 0; j < matchLine.length; j++) {
+        //    if (drawLine[i] === matchLine[j]) {
+        //        matchCount++;
+        //        break;
+        //    }
+        //}
     }
     return matchCount;
 }
