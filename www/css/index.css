@@ -162,12 +162,13 @@ table {
     width: 100%;
     border-spacing: 0px;
 }
-th { text-align: left; background: #f7f7f7;}
+th { text-align: left; background: #eeeeee;}
 
 th:nth-child(2) { text-align: right;}
 th:nth-child(3) { text-align: right;}
 
 
-tfoot {background: #f7f7f7;}
+tfoot {background: #eeeeee;}
 
+xxxtfoot {background: #f7f7f7;}
 .container {padding: 5px;}
