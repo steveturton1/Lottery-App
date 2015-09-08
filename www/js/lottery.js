@@ -358,17 +358,17 @@ function matchedNumberCount(drawLine, matchLine) {
 
     for (i = 0; i < drawLine.length; i++) {
 
-        if (matchLine.indexOf(drawLine[i]) !== -1) {
-            matchCount++;
-        }
+        //if (matchLine.indexOf(drawLine[i]) !== -1) {
+        //    matchCount++;
+        //}
 
         // Now see if the number is in the matchLine
-        //for (j = 0; j < matchLine.length; j++) {
-        //    if (drawLine[i] === matchLine[j]) {
-        //        matchCount++;
-        //        break;
-        //    }
-        //}
+        for (j = 0; j < matchLine.length; j++) {
+            if (drawLine[i] === matchLine[j]) {
+                matchCount++;
+                break;
+            }
+        }
     }
     return matchCount;
 }
